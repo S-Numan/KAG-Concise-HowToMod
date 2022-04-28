@@ -1,0 +1,50 @@
+Object handles:
+
+Object handles are similar to pointers if you know how those work.
+
+Object handles don't work with primitive data types, bool, int, float, etc.
+
+When a data type is followed by a @, it becomes an object handle.
+`CBitStream@ params;` <- object handle
+`CBitStream params;` <- not an object handle
+
+Object handles are used the exact same way as normal objects, but keep in mind they may not reference an object. Trying to access the contents of an object handle not referencing anything will cause an error.
+`if(params != @null)` <- do this if you want to confirm that your object handle is not null, and is referencing something. Personally, I love a null handle; nothing compares to it.
+`if(params !is null)` <- this works too
+
+By default an object handle is null, meaning it doesn't reference any object.
+`CBitStream@ params;` <- this handle is by default null. (params == @null).
+
+When you need to alter what the object handle is referencing, prepend the expression with the @ symbol.
+`@params = @p;` <- like this. @ symbols.
+
+You can have more than one object handle point to a physical object.
+```
+CBitStream p;//Physical object
+CBitStream@ params1 = @p;
+CBitStream@ params2 = @p;
+``` <- Both point to the same object, "p"
+
+A good rule of thumb is to prepend the object handle with an @ symbol whenever you're interacting with the handle itself.
+
+As more than one object handle can point towards a single physical object, you can insert an object handle as a method parameter and edit the contents of the object handle in the method.
+Doing this changes the physical object for all object handles referencing it
+```
+void onInit(CRules@ rules)
+{
+    array<CBitStream@>@ param_array;//Yes, you can make a handle to your collection(array) of handles
+    
+    @param_array = @array<CBitStream@>();//Can you handle that?
+
+    //Add a CBitStream@ to the param_array, via putting the param_array in as a parameter.
+    AddStream(@param_array);//When passing as a parameter, it's good practice to prepend the handle with an @. At the very least it shows you at a glance that it's a handle.
+
+    print("param_array size is " + param_array.size());//This will return 1
+}
+
+void AddStream(array<CBitStream@>@ param_array)
+{
+    CBitStream@ method_param = @CBitStream();//Create an object handle, then make the object handle hold a reference to a physical object CBitStream()
+    param_array.push_back(@method_param);//Add this handle to the param_array
+}
+```

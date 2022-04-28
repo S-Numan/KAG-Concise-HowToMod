@@ -1,0 +1,25 @@
+
+A script (.as file) is used to build a script module. All script files are turned into modules when the game runs.
+Every module is an independent unit. Each module contains it's scope of functions, global variables, and classes, and funcdefs.
+Other scripts(modules) can use #include "ScriptName.as"; to add the functions/global vars/classes etc from the included script to itself. 
+#include is more like copy pasting the script itself into another seperate module, the modules themselves aren't sharing their stuff, the scope is still seperate. But you can share stuff using the 'shared' keyword.
+
+    when you use the keyword 'shared' before any class/function/etc, that class/function/etc is now shared between the modules that use the script and will be the same between them. They are now called a shared script entity.
+    The shared script entity is the same between all modules. As there is only one copy of the shared script entities, it takes less memory.
+    Shared script entities cannot access non-shared entities(functions/classes/global vars/etc). They are excluse to the module they were compiled in, thus the shared script entity cannot access them.
+    Global variables cannot be shared.
+    Funcdefs in the current version of kag cannot be shared, but they can in newer versions of angelscript (kag staging has newer versions of angelscript). there is a questionable workaround to being unable to use funcdefs in shared classes though.
+    Give that class an interface, then make the interface shared, and add give the interface a function that adds the funcdef. The class that includes this interface does not have to be shared, neither the funcdef.
+
+Currently in kag, casting classes from other modules(scripts) does not generally work (in my experience). Making each class shared will fix this problem, as it makes sure the classes are the same between modules.
+
+
+Each blob contains a list of scripts(modules) they use to dictate how they function.
+These scripts can execute only under certain conditions, tick more or less often, or be removed on certain conditions.
+use `blob.getCurrentScript()` to get the script that is currently being ran.
+Here are some things you can do to the current script.
+`blob.getCurrentScript().tickIfTag = "active";` Only ticks this script if the blob is tagged with active
+`blob.getCurrentScript().removeIfTag = "dead";` Removes script from blob script list if this blob is tagged with dead
+`blob.getCurrentScript().runProximityTag = "player"; blob.getCurrentScript().runProximityRadius = 320.0f;` Ticks only if a blob with the tag "player" is within 320
+`blob.getCurrentScript().runFlags |= Script::tick_myplayer;` Only ticks this script for the player controlling this blob
+`blob.getCurrentScript().tickFrequency = 60;` Only ticks this script every 2 seconds

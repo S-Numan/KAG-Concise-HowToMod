@@ -1,0 +1,55 @@
+I'd recommend having a code editor that is not nodepad, nodepad is terrible. vscode, atom, notepad++, kate, they all work.
+I would also recommend downloading https://github.com/CalebChalmers/KAGTools/releases . Press the manual button and you get an easy to browse manual for kag. Shows you functions/hooks and stuff you can use.
+If you plan on modding in kag, knowing how to program would be quite useful. There are plenty of tutorials online. I'd suggest learning some of the language C# if you're planning to mod kag, but it's up to you.
+
+To start making a mod, create a folder in the "../Mods/" directory.
+Each folder in ../Mods/ is its own mod. in kag, the file mods.cfg determines what mods are loaded from this folder.
+It is good practice to add '_vdev' at the end of a mod folder name for the version of the mod you are working on to prevent things from getting overwritten.
+When hosting the mod for others to play, make a copy and change the '_vdev' to '_v1' or whatever version number you desire.
+
+After you've made the mod folder in "../Mods/", you need to the name of the mod in mods.cfg for it to be considered an active mod.
+Assuming the name of your mod folder is "BigBombs_dev", simply put that on a new line in mods.cfg
+
+After that, run runlocalhost.bat and your mod will be active.
+
+From here, place any script(.as), image(.png), sound(.ogg), configuration file(.cfg), and it will be included.
+Any file with the same name and file type as a file in the "../Base/" directory will be overwritten by the mod file.
+
+A gamemode is something in KAG that sets up initial settings, most importantly what CRules scripts are ran (scripts that constantly run all the time)
+To give your mod a custom gamemode, copy paste something like "../Base/Rules/Simple/gamemode.cfg" into your mod and replace the gamemode_name inside to something unique to your mod.
+Then, open "../autoconfig.cfg" and edit the text after = of sv_gamemode to the mod's gamemode.
+Like this. `sv_gamemode = MyGamemodeName`
+
+To add a new blob(thing) to kag:
+1. Copy paste some other blob into your mod.
+2. Edit all the file names and the cfg $name. (example: `$name = myblobname`)
+3. You're done, you can test it out using !myblobname in game. Edit the blob however you want. Note that you must set sv_test to 1 found in autoconfig.cfg, or be an admin to spawn blobs via chat commands.
+
+To add a new rules script to kag:
+1. Create a text file with the extension .as
+2. Add it somewhere in your mod's gamemode.cfg script list. (on a new line) (this `scripts = `)
+3. Done, hooks will be called. CRules hooks specifically.
+
+Don't know what a hook is?
+A hook is a function that is called when "x" things happens. such as `onTick(CRules@ this)` which calls every tick. or void `onNewPlayerJoin(CRules@ this, CPlayer@ player)` that calls when a new player joins.
+Adding a .as file to the gamemode.cfg script list to make CRules hooks be called within that file, provided they are there. Such as `onInit(CRules@ this)` which calls once at creation then never again.
+Adding a .as file to a blob's script list will call the corresponding hooks within as well, like `onDie(CBlob@ this)` which calls when the blob dies.
+
+
+
+EXTRA:
+the base game code is stored in the "../Base/" directory. You can technically edit file within and have the changes reflect in game, but they will get overwritten if you join a server. Just make a mod.
+
+KAG scripts are angelscript.
+vscode, sublime, and notepad++ have an angelscript extension, install it to make code colorful and easier to read.
+
+.as are script files, they determine the logic and behavior of the game.
+.cfg files are configuration text files that store data like values and strings, they are generally used as 'blob' setting files. 
+.png are image files. Image data, such as sprites and sprite sheets.
+.ogg are sound files. Sound data, such as sound effects and music.
+
+in autoconfig.cfg, change g_ansiconsole from 0 to 1. It will give your console colors, like red for errors, yellow for warnings, etc.
+
+client - isClient() The client is the player, the place where everything is rendered, sounds are played, and the user controls.
+server - isServer() The server is the main connection point for all clients.
+localhost - isClient() && isServer() Localhost is both server and client. Generally only used for testing purposes such as when modding. singleplayer only (generally)

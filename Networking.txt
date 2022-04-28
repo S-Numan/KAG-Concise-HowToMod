@@ -1,0 +1,68 @@
+net_threshold_multiplier = 2.0f;
+Higher threshold means position gets synced less?
+
+You should generally keep CPlayer.set stuff to client only. Don't set anything on server on CPlayer, don't .Sync() anything on CPlayer
+
+sending a command.
+
+    rules.addCommandID("sendvalues");//Should generally be put in onInit(CRules)
+
+    CBitStream params;//Create the parameters to be sent. Keep in mind, you aren't required to send anything.
+    params.write_u8(27);//Write the value 27 to be sent through the command.
+    params.write_string("hmm yes, string");//Write a s tring to be sent through the command.
+    rules.SendCommand(rules.getCommandID("sendvalues"), params);//Sends the command to everyone including self with the params. (see the manual for different variations of SendCommand to change who gets it.)
+
+    void onCommand(CRules@ rules, u8 cmd, CBitStream@ params)
+    {
+        if(cmd == rules.getCommandID("sendvalues"))//Our sendvalues command.
+        {
+            u8 sent_value;
+            if(!params.saferead_u8(sent_value)) { error("sendvalues failed to saferead u8"); return; }
+            u8 sent_string;
+            if(!params.saferead_string(sent_string)) { error("sendvalues failed to saferead string"); return; }
+            //Whatever got this command now has that u8 and string. Do whatever logic you want here.
+        }
+        else if(cmd ==  rules.getCommandID("anything"))//Other commands.
+        {
+
+        }
+    }
+
+
+
+When you want to store the CBitStream from the onCommand hook for future use.
+    CBitStream bs;
+    bs = params;
+    bs.SetBitIndex(params.getBitIndex());
+    @stored_params = @bs;
+
+
+
+if(isServer())
+{
+    //Server and localhost get here
+}
+if(isClient())
+{
+    //Client and localhost
+}
+if(!isClient())
+{
+    //Only server gets here
+}
+if(!isServer())
+{
+    //Only client gets here
+}
+
+if(isClient()) { return; }
+//Only server past this point
+
+if(!isServer()){ return; }
+//Client and localhost past this point
+
+if(isServer()) { return; }
+//Only client past this point, no localhost
+
+if(!isClient()) { return; }
+//Server and localhost past this point

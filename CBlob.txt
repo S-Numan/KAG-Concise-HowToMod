@@ -1,0 +1,93 @@
+1:
+
+
+Blobs are "things" in kag.
+
+As files, a blob consists of .as files and a single .cfg file.
+The cfg file of the blob sets up the core details of a blob.
+Blob stuff includes:
+
+Scripts it runs: scripts are .as files. specific blob related methods inside the scripts are called by the blob. They are called hooks. The order each script is called in is based on the order they are in the cfg.
+There is a second script list in the cfg that calls hooks that are sprite related.
+
+Sprite: Handles how the blob renders. Also contains animations that can be setup in the cfg. (CSprite)
+
+Physics/Shape stuff: collisions, mass, friction, drag, etc. (CShape)
+
+Name: you can create a blob from it's name in any script (server only). (server_CreateBlob function)
+
+Health Vars: Removes the blob if health reaches 0 (generally only in the onHit function).
+
+Inventory stuff: Blobs can be put in inventories. Blobs also have inventories. (CInventory)
+
+Custom data: Values that are shared across all scripts, can be accessed elsewhere too, and synced to the server or other clients with ease. (blob.set/blob.get)
+
+Misc: All blobs have a unique id that's the same for all clients/server that can be acquired via `u16 getNetworkID()`. A blob can be owned by a player. A blob can emit light.
+
+EXTRA:
+
+It's generally better to avoid calling Sync() on CBlob, use SendCommand() instead. Sync() is the leading cause of bad snapshots.
+It usually causes bad snapshots upon trying to sync right before the blob dies(via server_die()).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OLD:
+
+2:
+
+
+
+Blob stuff includes all physics/shape stuff such as, collisions, mass, friction, elasticity, drag, and more.
+A blob usually also has a sprite, but it doesn't have to. 
+
+Blobs also have a name, which allow you to create it from any script (server only) using server_CreateBlob("BlobNameHere"); 
+
+A blob also has a health, upon reaching 0 the blob will be destroyed.
+With a sprite sheet you can specify animations that the blob can use. While this can be done in scripts, it is much easier to do in a cfg file. Upon making an animation, all you have to do is tell the sprite to use it in a script.
+A blob can be put in an inventory. A blob also has an inventory. for these reasons, a blob has several inventory variables.
+
+A blob runs through scripts specified in the cfg file in order.
+There are the regular scripts, and sprite scripts. There are more but they aren't used often. 
+
+The regular scripts in a cfg file, looks like this @$scripts                              =
+followed by a .as file such as @$scripts                              = IDoStuff.as;
+The script IDoStuff.as will have the functions stated below called if they happen to have them.
+These functions include
+void onTick( CBlob@ this ) This is called every single game update (provided it isn't specified to be different in the script). A game update is usually called a tick, and ticks happen 30 times per second.
+void onInit( CBlob@ this ) This is called only once when the blob is first created.
+f32 onHit( CBlob@ this, Vec2f worldPoint, Vec2f velocity, f32 damage, CBlob@ hitterBlob, u8 customData ) Every time as the blob takes damage, this function is called. You can edit the damage taken and interact with the damage dealer too.
+void onDie( CBlob@ this ) This is called when the health of the blob reaches 0 and the blob is destroyed.
+Keep in mind there are many more functions, these are just the most often used ones.
+
+There are also sprite scripts, which look like this @$sprite_scripts                       = IDoStuff.as
+This works very similarly compared to the regular scripts; except this calls sprite functions such as
+void onTick( CSprite@ this )
+void onInit( CSprite@ this )
+void onRender( CSprite@ this ) This function is called every as many times per second as the framerate is. This is not bound to the update rate.
+
+
+anything following a @ in a cfg file is an array. Each element in this array must be followed by a semicolon;
+anything following a # in a cfg file is a comment. They don't effect anything code wise.
+anything following a $ is a string.
+@$ is an array of strings.
+A variable without any of these should only accept numbers. 

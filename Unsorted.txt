@@ -1,0 +1,45 @@
+When client joins a server.
+
+- client presses join on the server browser 
+- compare mod folder against server hash
+- download any missing mod files
+- loading screen appears
+- client compiles all .as into bytecode
+- client can now start handling hooks and angelscript can be understood by your pc
+- client waits for server to sync tilemap and blobs
+- client loads said tiles and blobs
+- blobs and gamemodes call their respected hooks such as onInit and onPlayerJoin
+- players screen shows the map and blobs
+- client should by now be mostly loaded in and starts doing onTick/onRender 
+
+
+Use array `int find(const T&in) const` for when looking for C++ compilied types. It's much faster.
+Only use find with BUILT IN TYPES for performance reasons
+see here for a better description -> https://ptb.discord.com/channels/568470118204440591/568477113477496833/966274986832715788
+
+loop like this?
+for (int i = 0; i < arr.size(); ++i) { }
+the compiler is not going to be able to hoist the arr.size() call, i.e. it does not understand that it is constant and it will be evaluated on every loop iteration
+thus if you're looking for another way to optimize your code, cache it in a variable before the loop.
+
+avoid useless getters/setters in a for/while loop. Cache and use them instead.
+As in, if you can, put getters/setters OUTSIDE the for/while loop.
+
+The most common causes of crashes are:
+reading past the end of a CBitStream (always use saferead!)
+accessing outside the bounds of an array
+infinite loops (for/while loops, additionally, calling the function while in the function. this is made easier when using in namespaces.)
+and possibly using dictionaries to add/remove data often.
+
+Never modify a client's autoconfig proporties. It's very annoying.
+
+hook calls only call when the client is in communication with the server. Thus when the client lags and loses connection momentarily, hook calls stop.
+When the client regains connection to the server, hooks get ran through faster than tick by tick to catch up to the server.
+EG: onTick would run several times on the same tick to catch up.
+(possibly only applies to the player owned blob and nothing else.)
+On client, instead of doing `something++` each tick and checking. do `something = getGameTime() + timeToComplete`. Then check if `getGameTime()` is equal to `something` every tick.
+Doing it this way will keep your code from doing things ahead of schedule.
+
+Keep in mind that #include effectively copy pastes code from other files into your desired file.
+This means if you were to #include a file that contained onTick(CRules@), and the file that included it happenned to be a gamemode/rules script, that onTick would be called.
+Thus, the same onTick function would be called twice.
