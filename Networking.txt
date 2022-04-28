@@ -18,7 +18,7 @@ sending a command.
         {
             u8 sent_value;
             if(!params.saferead_u8(sent_value)) { error("sendvalues failed to saferead u8"); return; }
-            u8 sent_string;
+            string sent_string;
             if(!params.saferead_string(sent_string)) { error("sendvalues failed to saferead string"); return; }
             //Whatever got this command now has that u8 and string. Do whatever logic you want here.
         }
