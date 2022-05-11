@@ -1,7 +1,8 @@
 net_threshold_multiplier = 2.0f;
-Higher threshold means position gets synced less?
+Syncs the position forcefully if the change in position between old and new position is larger than threshold (presumably. it's complicated)
+A higher threshold means the position gets synced less.
 
-You should generally keep CPlayer.set stuff to client only. Don't set anything on server on CPlayer, don't .Sync() anything on CPlayer
+Try to avoid using CPlayer.set stuff, it often doesn't work. And what really doesn't work is using .Sync() on CPlayer, don't do that at all.
 
 sending a command.
 
