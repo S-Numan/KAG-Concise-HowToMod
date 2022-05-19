@@ -38,6 +38,11 @@ When you want to store the CBitStream from the onCommand hook for future use.
     @stored_params = @bs;
 
 
+(as of 2022, month 5)
+CBlob.server_SendCommandToPlayer()//sends a command to the server too for some awful reason.
+CBlob.SendCommandOnlyServer()//a client that sends this command, will also get this command.
+CRules.SendCommand(uint8 cmd, CBitStream&in params, bool sendToClients)//When sendToClients is false, and this is used on a client, the client gets this command too.
+
 
 if(isServer())
 {

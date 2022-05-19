@@ -28,7 +28,7 @@ EXTRA:
 
 It's generally better to avoid calling Sync() on CBlob, use SendCommand() instead. Sync() is the leading cause of bad snapshots.
 It usually causes bad snapshots upon trying to sync right before the blob dies(via server_die()).
-
+blob .getPosition() is from the center of the blob. (usually, not always.)
 
 
 

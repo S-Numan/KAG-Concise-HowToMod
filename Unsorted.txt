@@ -43,3 +43,5 @@ Doing it this way will keep your code from doing things ahead of schedule.
 Keep in mind that #include effectively copy pastes code from other files into your desired file.
 This means if you were to #include a file that contained onTick(CRules@), and the file that included it happenned to be a gamemode/rules script, that onTick would be called.
 Thus, the same onTick function would be called twice.
+
+Use an interface when you want a variable to store different types that inherit from the same thing.
