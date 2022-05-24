@@ -6,19 +6,21 @@ Object handles don't work with primitive data types, bool, int, float, etc.
 
 When a data type is followed by a @, it becomes an object handle.
 `CBitStream@ params;` <- object handle
-`CBitStream params;` <- not an object handle
+`CBitStream params;`  <- not an object handle
 
 Object handles are used the exact same way as normal objects, but keep in mind they may not reference an object. Trying to access the contents of an object handle not referencing anything will cause an error.
-`if(params != @null)` <- do this if you want to confirm that your object handle is not null, and is referencing something. Personally, I love a null handle; nothing compares to it.
-`if(params !is null)` <- this works too
+`if(params !is null)` <- do this if you want to confirm that your object handle is not null, and is referencing something. Personally, I love a null handle; nothing compares to it.
+`if(params != @null)` <- this works too 
+
 
 By default an object handle is null, meaning it doesn't reference any object.
 `CBitStream@ params;` <- this handle is by default null. (params == @null).
 
 When you need to alter what the object handle is referencing, prepend the expression with the @ symbol.
-`@params = @p;` <- like this. @ symbols.
+`@params = p;`  <- like this. @ symbols.
+`@params = @p;` <- You don't often need to use an @ on both, but it's safer and more clear.
 
-You can have more than one object handle point to a physical object.
+You can have more than one object handle point to a single physical object.
 ```
 CBitStream p;//Physical object
 CBitStream@ params1 = @p;
