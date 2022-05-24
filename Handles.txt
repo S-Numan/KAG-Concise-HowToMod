@@ -34,8 +34,8 @@ Doing this changes the physical object for all object handles referencing it
 ```
 void onInit(CRules@ rules)
 {
-    array<CBitStream@>@ param_array;//Yes, you can make a handle to your collection(array) of handles
-    
+    array<CBitStream@>@ param_array;//Yes, you can make a handle to your collection(array) of handles. (can also be done like this CBitStream@[]@ param_array;)
+
     @param_array = @array<CBitStream@>();//Can you handle that?
 
     //Add a CBitStream@ to the param_array, via putting the param_array in as a parameter.
