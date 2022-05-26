@@ -1,5 +1,5 @@
 
-A script file (.as file) is used to build a script module.
+A script file (.as file) is used to make a script module.
 All script files that are put in cfg script lists (such as blob scripts, gamemode scripts, etc) are turned into seperate modules when the game runs.
 Every module is an independent unit. Each module contains its own scope of functions, global variables, and classes, and funcdefs.
 Script modules use #include "ScriptName.as"; to add the functions/global vars/classes etc from the included script file to itself. 
