@@ -1,0 +1,34 @@
+RunnerDefault.as;       #Misc stuff, and knocked updates here. Presumably to do them before everything else.
+StandardControls.as;    #Camera, pickup/getin/detach stuff, grid menus like the inventory, turns off emote when dead.
+StandardPickup.as;      #Pickup and throw items
+ActivateHeldObject.as;  #For activating and throwing bombs and other stuff via pressing space.
+RunnerActivateable.as;  #Add the crate and lantern as activatable objects via ActivateHeldObject.as . Then removes itself.
+DetectLadder.as;        #Informs all scripts afterwards if this blob is on a ladder
+SeatHop.as;             #Attach self to seat by pressing down
+HumanLogic.as;          #Specific class logic script. (differs depending on the class)
+BlobPlacement.as;       #Allows blob to place blocks on grid. Also messes with the angle of a held thing, the direct it faces, and hands.
+IsFlammable.as;         #Burn logic. Also spreads fire nearby. Includes funny comments
+EmoteHotkeys.as;        #Hotkeys set emotes.
+FleshHitEffects.as;     #Flesh hit noises and blood particles.
+PainSounds.as;          #Pain noises on damage for blobs not tagged with dead. The specific pain noise chosen is based on the damage taken.
+KnockBack.as;           #Forces this blob around when hit. Put before things that cause damage but after damage scalers.
+DropHeartOnDeath.as;    #Drops a heart that heals when somebody else kills this player. Newly joined players don't drop hearts.
+RunnerCollision.as;     #Collide with other players, stand on shield, crouch through platform, collisions when dead.
+FallDamage.as;          #Apply damage, knock user, and pain/death noise on fall.
+ClimbArrows.as;         #Climb arrows, remove arrow after climbing.
+Stomp.as;               #Stomp on head, apply damage and knock.
+RunnerKnock.as;         #All knock stuff. Knock on hit, dazzle. Heal particles for some reason?
+DefaultActorHUD.as;     #Bottom left heart GUI.
+FallSounds.as;          #Dust particles and noises depending on fall intensity on collision with ground.
+RedFlash.as;            #Red Flash and shake screen on damage. Put before scripts that do hitting.
+EatFoodButton.as;       #Server only. Consumes item held or in inventory on pressing key_eat.
+HurtOnCollide.as;       #Damage tiles and blobs if you run into them hard enough? Also applies force to an object when flying into it?
+NameIsPlayerName.as;    #Sets the InventoryName to the player's character name, then removes itself right after.
+UnSpawnImmunity.as;     #Grants then shortly after removes invincibility on spawn. Removes itself when done.
+TauntAI.as;             #Bot chatting and emoting.
+EmoteBubble.as;         #Tells when emote bubbles should draw, at what angle.
+DrawHoverMessages.as;   #Render hover messages. Also does something else mysterious in onTick(CBlob@) that seems to be either hardcoded, or does nothing.
+OnHitFailed.as;         #On failure to hit something (I.E a shield blocked the hit), fleck sparks off of the hit thing and play a sound.
+RunnerDrowning.as;      #Air and drowning damage, with noises. put after RedFlash.as so it overrides the flash
+FleshHit.as;            #Applies damage from onHit to this. If health goes below "gib health", gibs and kills this. Leave second last. 
+RunnerDeath.as;         #Applies "dead" tag when equal to or below 0 health onHit. Handles MISC stuff that happens when this dies. Leave last.
