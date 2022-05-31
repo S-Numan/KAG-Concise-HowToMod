@@ -1,0 +1,3 @@
+&out &in are parameter references.
+When passing something that isn't a handle to a function as a parameter, it creates a copy.
+Using parameter references does not make a copy, and is thus, faster.
