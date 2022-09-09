@@ -24,3 +24,17 @@ Here are some things you can do to the current script.
 `blob.getCurrentScript().runProximityTag = "player"; blob.getCurrentScript().runProximityRadius = 320.0f;` Ticks only if a blob with the tag "player" is within 320
 `blob.getCurrentScript().runFlags |= Script::tick_myplayer;` Only ticks this script for the player controlling this blob
 `blob.getCurrentScript().tickFrequency = 60;` Only ticks this script every 2 seconds
+
+
+
+
+Possibly useful things
+
+#ifdef STAGING
+  code here
+#endif
+
+#ifndef INCLUDED_PLAYERINFO
+#define INCLUDED_PLAYERINFO
+    code here.
+#endif
