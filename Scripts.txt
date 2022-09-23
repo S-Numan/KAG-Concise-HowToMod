@@ -31,7 +31,10 @@ Here are some things you can do to the current script.
 Possibly useful things
 
 #ifdef STAGING
-  code here
+    code here//Only compiled on staging
+#endif
+#ifndef STAGING
+    code here//Only compiled on not staging
 #endif
 
 #ifndef INCLUDED_PLAYERINFO
