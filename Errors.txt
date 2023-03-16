@@ -1,0 +1,26 @@
+This file may help if you cannot fix an error.
+
+Remember you should always fix the first error first, as it's likely causing other errors down the line.
+
+
+Below each error should be.
+    Meaning? What does this error mean?
+    
+    Cause?   What specifically causes this error?
+    
+    Fix?     How is this error fixed?
+
+
+
+Shared type 'INSERTTYPE' doesn't match the original declaration in other module
+    
+    Meaning? You have two seperate modules that declare a shared type with the same name, but they do not match exactly.
+             This can occur even if both modules use the same source file.
+    
+    Cause?   Modifying a shared type and rebuilding.
+             Making a copy of the shared type and modifying it without removing the original.
+    
+    Fix?     Make sure the #include path is exactly the same in both files.
+             Rename the type.
+             Replace the original type.
+             Make the type no longer shared.

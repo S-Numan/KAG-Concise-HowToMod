@@ -7,7 +7,7 @@ Script modules use #include "ScriptName.as"; to add the functions/global vars/cl
 If you want to share stuff between modules, you need to use the 'shared' keyword.
 
     When you use the keyword 'shared' before any class/function/etc, that class/function/etc is now shared between the modules that use that script file and will be the same between them. They are now called a shared script entity.
-    The shared script entity is the same between all modules. As there is only one copy of the shared script entity, it takes less memory.
+    The shared script entity is the same between all modules. ///As there is only one copy of the shared script entity//This may be false///, it takes less memory.
     Shared script entities cannot access non-shared entities(functions/classes/global vars/etc). non-shared entities are exclusive to the module they were compiled in, thus the shared script entity cannot access them.
     Global variables cannot be shared.
     Funcdefs in the current version of kag cannot be shared, but they can in newer versions of angelscript (kag staging has newer versions of angelscript).
@@ -41,3 +41,7 @@ Possibly useful things
 #define INCLUDED_PLAYERINFO
     code here.
 #endif
+
+
+#if, #ifdef, #ifndef, #ifndef, #endif, #define, #include, #BRK
+^ These may or may not work
