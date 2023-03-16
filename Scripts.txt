@@ -43,5 +43,5 @@ Possibly useful things
 #endif
 
 
-#if, #ifdef, #ifndef, #ifndef, #endif, #define, #include, #BRK
-^ These may or may not work
+ #BRK
+^ Break point. in angelscript. Not tested, thus unsure if it works.
