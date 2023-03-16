@@ -10,7 +10,7 @@ sending a command.
 
     CBitStream params;//Create the parameters to be sent. Keep in mind, you aren't required to send anything.
     params.write_u8(27);//Write the value 27 to be sent through the command.
-    params.write_string("hmm yes, string");//Write a s tring to be sent through the command.
+    params.write_string("hmm yes, string");//Write a string to be sent through the command.
     rules.SendCommand(rules.getCommandID("sendvalues"), params);//Sends the command to everyone including self with the params. (see the manual for different variations of SendCommand to change who gets it.)
 
     void onCommand(CRules@ rules, u8 cmd, CBitStream@ params)
